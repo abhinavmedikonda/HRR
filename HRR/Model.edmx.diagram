@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6926492a8e6842dda9f9a1d7cff3526b" Name="Diagram1" >
+        <EntityTypeShape EntityType="HRRModel.Skill" Width="1.5" PointX="11.625" PointY="1.125" />
+        <EntityTypeShape EntityType="HRRModel.Role" Width="1.5" PointX="5.625" PointY="1.125" />
+        <EntityTypeShape EntityType="HRRModel.Project" Width="1.5" PointX="2.875" PointY="1.25" />
+        <EntityTypeShape EntityType="HRRModel.SkillSet" Width="1.5" PointX="8.625" PointY="1.25" />
+        <AssociationConnector Association="HRRModel.ProjectRole" />
+        <AssociationConnector Association="HRRModel.SkillSkillSet" />
+        <AssociationConnector Association="HRRModel.RoleSkillSet" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

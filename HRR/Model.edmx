@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HRRModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="HRRModelStoreContainer">
+    <EntitySet Name="Skills" EntityType="HRRModel.Store.Skills" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="HRRModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Projects" EntityType="HRRModel.Store.Projects" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SkillSets" EntityType="HRRModel.Store.SkillSets" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ProjectRole" Association="HRRModel.Store.ProjectRole">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="Role" EntitySet="Roles" />
+    </AssociationSet>
+    <AssociationSet Name="SkillSkillSet" Association="HRRModel.Store.SkillSkillSet">
+      <End Role="Skill" EntitySet="Skills" />
+      <End Role="SkillSet" EntitySet="SkillSets" />
+    </AssociationSet>
+    <AssociationSet Name="RoleSkillSet" Association="HRRModel.Store.RoleSkillSet">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="SkillSet" EntitySet="SkillSets" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Skills">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectId" Type="smallint" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Projects">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="1000" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SkillSets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SkillId" Type="smallint" Nullable="false" />
+    <Property Name="RoleId" Type="smallint" Nullable="false" />
+  </EntityType>
+  <Association Name="ProjectRole">
+    <End Role="Project" Type="HRRModel.Store.Projects" Multiplicity="1" />
+    <End Role="Role" Type="HRRModel.Store.Roles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Role">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SkillSkillSet">
+    <End Role="Skill" Type="HRRModel.Store.Skills" Multiplicity="1" />
+    <End Role="SkillSet" Type="HRRModel.Store.SkillSets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skill">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SkillSet">
+        <PropertyRef Name="SkillId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RoleSkillSet">
+    <End Role="Role" Type="HRRModel.Store.Roles" Multiplicity="1" />
+    <End Role="SkillSet" Type="HRRModel.Store.SkillSets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SkillSet">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HRRModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HRREntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Skills" EntityType="HRRModel.Skill" />
+          <EntitySet Name="Roles" EntityType="HRRModel.Role" />
+          <EntitySet Name="Projects" EntityType="HRRModel.Project" />
+          <EntitySet Name="SkillSets" EntityType="HRRModel.SkillSet" />
+          <AssociationSet Name="ProjectRole" Association="HRRModel.ProjectRole">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Role" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="SkillSkillSet" Association="HRRModel.SkillSkillSet">
+            <End Role="Skill" EntitySet="Skills" />
+            <End Role="SkillSet" EntitySet="SkillSets" />
+          </AssociationSet>
+          <AssociationSet Name="RoleSkillSet" Association="HRRModel.RoleSkillSet">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="SkillSet" EntitySet="SkillSets" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="SkillSet" Relationship="HRRModel.SkillSkillSet" FromRole="Skill" ToRole="SkillSet" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Project" Relationship="HRRModel.ProjectRole" FromRole="Role" ToRole="Project" />
+          <Property Name="ProjectId" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="SkillSet" Relationship="HRRModel.RoleSkillSet" FromRole="Role" ToRole="SkillSet" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Roles" Relationship="HRRModel.ProjectRole" FromRole="Project" ToRole="Role" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="1000" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SkillSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Skill" Relationship="HRRModel.SkillSkillSet" FromRole="SkillSet" ToRole="Skill" />
+          <Property Name="SkillId" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="HRRModel.RoleSkillSet" FromRole="SkillSet" ToRole="Role" />
+          <Property Name="RoleId" Type="Int16" Nullable="false" />
+        </EntityType>
+        <Association Name="ProjectRole">
+          <End Type="HRRModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="HRRModel.Role" Role="Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SkillSkillSet">
+          <End Type="HRRModel.Skill" Role="Skill" Multiplicity="1" />
+          <End Type="HRRModel.SkillSet" Role="SkillSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SkillSet">
+              <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoleSkillSet">
+          <End Type="HRRModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="HRRModel.SkillSet" Role="SkillSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SkillSet">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HRRModelStoreContainer" CdmEntityContainer="HRREntities">
+    <EntitySetMapping Name="Skills">
+      <EntityTypeMapping TypeName="IsTypeOf(HRRModel.Skill)">
+        <MappingFragment StoreEntitySet="Skills">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="IsTypeOf(HRRModel.Role)">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="IsTypeOf(HRRModel.Project)">
+        <MappingFragment StoreEntitySet="Projects">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SkillSets">
+      <EntityTypeMapping TypeName="IsTypeOf(HRRModel.SkillSet)">
+        <MappingFragment StoreEntitySet="SkillSets">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
